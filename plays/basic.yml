@@ -1,0 +1,5 @@
+---
+- hosts: linux
+  roles:
+    - basic
+  # become: yes
