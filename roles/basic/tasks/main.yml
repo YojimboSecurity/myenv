@@ -22,10 +22,34 @@
     name: git
     state: present
 
+- name: Install Zip
+  become: true
+  ansible.builtin.apt:
+    name: zip
+    state: present
+
+- name: Install fontconfig
+  become: true
+  ansible.builtin.apt:
+    name: fontconfig
+    state: present
+
+- name: Copy install_font.sh
+  ansible.builtin.copy:
+    src: files/install_font.sh  
+    dest: /tmp/install_font.sh
+    mode: u+x
+
+- name: Install Font
+  ansible.builtin.shell: /tmp/install_font.sh 
+
 - name: Clone My Config Files
   ansible.builtin.git:
     repo: "https://github.com/YojimboSecurity/config.git"
     dest: ~/github.com/config
+
+- name: Install Config Files
+  ansible.builtin.shell: ~/github.com/config/install
 
 - name: Copy install_rust
   ansible.builtin.copy:

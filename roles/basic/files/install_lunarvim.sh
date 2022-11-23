@@ -19,4 +19,4 @@ curl -OL https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/instal
 chmod +x install.sh
 ./install.sh -y
 echo "export PATH=$PATH:$HOME/.local/bin" >> $HOME/.bashrc
-echo "alias vim=$($HOME/.local/bin/lvim)" >> $HOME/.bashrc
+echo "alias vim=$HOME/.local/bin/lvim" >> $HOME/.bashrc
