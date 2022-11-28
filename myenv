@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# Set up an apt based Linux OS according to the specified environment.
+# For example, if you want to set up a linux machine as a python development
+# environment. Or you want to set up a linux machine as a wireless pentesting
+# machine. You would run this script with the desired environment as a command
+# line argument.
+
+set -ue
+
+basic(){
+    ./modules/setup_bash.sh
+    ./modules/install_nvim.sh
+} 
+
+standard(){
+    basic
+    ./modules/install_lvim.sh
+}
+
+development(){
+    standard
+    ./modules/install_python.sh
+    ./modules/install_go.sh
+}
+
+main(){
+#    TODO: run all if no commands are given
+#    if [ $# -eq 0 ]; then
+#        echo "install all"
+#        return
+#    fi
+    for i in "$@"
+    do
+        case "${i}" in
+            basic)
+                basic
+                ;;
+            standard)
+                standard
+                ;;
+            development)
+                development
+                ;;
+
+            nvim)
+                ./modules/install_nvim.sh
+                ;;
+            lvim)
+                ./modules/install_lvim.sh
+                ;;
+            go)
+                ./modules/install_go.sh
+                ;;
+            python)
+                ./modules/install_python.sh
+                ;;
+            bash)
+                ./modules/install_bash.sh
+                ;;
+            wireless)
+                ./modules/install_wireless.sh
+                ;;
+            *)
+                echo "${i} is not an option"
+                return
+                ;;
+        esac
+    done
+}
+
+main "$@"
